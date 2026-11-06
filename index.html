@@ -1,219 +1,174 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="QuizMaster - Online Quiz and Examination System">
-    <title>QuizMaster | Online Quiz & Exam System</title>
+    <title>QuizMaster | Online Quiz System</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <header class="topbar">
-        <div class="header-content">
-            <div>
-                <h1>QuizMaster</h1>
-                <p>Online Quiz & Exam System</p>
-            </div>
-            <span class="header-tag">B.Tech AIML Project</span>
+<header class="topbar">
+    <div class="brand">
+        <span class="brand-icon">Q</span>
+        <span>QuizMaster</span>
+    </div>
+
+    <nav>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#categories">Quizzes</a>
+        <a href="#history">History</a>
+    </nav>
+
+    <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">🌙</button>
+</header>
+
+<main class="container">
+
+    <section class="welcome-section">
+        <div>
+            <p class="eyebrow">LEARN • PRACTICE • IMPROVE</p>
+            <h1>Test your knowledge.</h1>
+            <p class="subtitle">Choose a subject, challenge yourself and track your progress.</p>
         </div>
-    </header>
+        <div class="welcome-icon">🎓</div>
+    </section>
 
-    <main class="dashboard">
+    <section id="dashboard" class="dashboard">
+        <div class="stat-card">
+            <span class="stat-icon">📝</span>
+            <p>Total Attempts</p>
+            <h2 id="totalAttempts">0</h2>
+        </div>
 
-        <section class="welcome">
-            <div class="welcome-content">
-                <span class="welcome-label">LEARN • PRACTICE • IMPROVE</span>
-                <h2>Welcome to QuizMaster!</h2>
-                <p>
-                    Challenge yourself, test your knowledge
-                    and improve your skills with interactive quizzes.
-                </p>
-                <button id="startQuizBtn" type="button">
-                    Start Quiz
-                </button>
+        <div class="stat-card">
+            <span class="stat-icon">🎯</span>
+            <p>Average Accuracy</p>
+            <h2 id="averageAccuracy">0%</h2>
+        </div>
+
+        <div class="stat-card">
+            <span class="stat-icon">⭐</span>
+            <p>Best Score</p>
+            <h2 id="bestScore">0%</h2>
+        </div>
+
+        <div class="stat-card">
+            <span class="stat-icon">📚</span>
+            <p>Questions Attempted</p>
+            <h2 id="totalQuestionsAttempted">0</h2>
+        </div>
+    </section>
+
+    <section id="categories" class="section">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">EXPLORE SUBJECTS</p>
+                <h2>Choose Your Quiz</h2>
             </div>
-        </section>
+            <span class="section-note">11 Categories</span>
+        </div>
 
-        <section class="dashboard-stats">
-            <div class="stat-card">
-                <span class="stat-icon">📚</span>
-                <h3>Total Quizzes</h3>
-                <p id="totalQuizzes">0</p>
-                <span class="stat-description">Attempts completed</span>
+        <div id="categoryGrid" class="category-grid"></div>
+    </section>
+
+    <section id="quizSection" class="quiz-section hidden">
+        <div class="quiz-top">
+            <button id="exitQuizButton" class="text-btn">← Exit Quiz</button>
+            <span id="quizCategoryLabel" class="category-label">Quiz</span>
+        </div>
+
+        <div class="quiz-info">
+            <div>
+                <p class="muted">QUESTION</p>
+                <h2 id="questionCounter">1 / 5</h2>
+            </div>
+            <div class="timer-box">
+                <span>⏱</span>
+                <span id="timer">00:30</span>
+            </div>
+        </div>
+
+        <div class="progress-track">
+            <div id="progressBar" class="progress-bar"></div>
+        </div>
+
+        <div class="question-card">
+            <h2 id="questionText">Question will appear here</h2>
+            <div id="optionsContainer" class="options-container"></div>
+        </div>
+
+        <div class="quiz-footer">
+            <span id="answeredCounter">Answered: 0</span>
+            <button id="nextButton" class="primary-btn" disabled>Next Question →</button>
+        </div>
+    </section>
+
+    <section id="resultSection" class="result-section hidden">
+        <div class="result-card">
+            <div class="result-icon">🏆</div>
+            <p class="eyebrow">QUIZ COMPLETED</p>
+            <h2 id="resultTitle">Well Done!</h2>
+            <p id="resultMessage">Your result is ready.</p>
+
+            <div class="score-circle">
+                <strong id="resultPercentage">0%</strong>
+                <span>Accuracy</span>
             </div>
 
-            <div class="stat-card">
-                <span class="stat-icon">📊</span>
-                <h3>Average Score</h3>
-                <p id="averageScore">0%</p>
-                <span class="stat-description">Overall performance</span>
-            </div>
-
-            <div class="stat-card">
-                <span class="stat-icon">🏆</span>
-                <h3>Best Score</h3>
-                <p id="bestScore">0%</p>
-                <span class="stat-description">Highest achievement</span>
-            </div>
-        </section>
-
-        <section class="categories">
-            <div class="section-heading">
+            <div class="result-stats">
                 <div>
-                    <span class="section-label">EXPLORE TOPICS</span>
-                    <h2>Quiz Categories</h2>
-                    <p>Choose your preferred subject to begin.</p>
+                    <strong id="resultCorrect">0</strong>
+                    <span>Correct</span>
                 </div>
-            </div>
-
-            <div class="category-list">
-
-                <article class="category-card web-card"
-                    data-category="web">
-                    <div class="category-icon">🌐</div>
-                    <h3>Web Development</h3>
-                    <p>HTML, CSS and JavaScript fundamentals.</p>
-                    <button class="start-category-btn" type="button">
-                        Start Quiz →
-                    </button>
-                </article>
-
-                <article class="category-card ai-card"
-                    data-category="ai">
-                    <div class="category-icon">🤖</div>
-                    <h3>AI & Machine Learning</h3>
-                    <p>Explore Artificial Intelligence and ML concepts.</p>
-                    <button class="start-category-btn" type="button">
-                        Start Quiz →
-                    </button>
-                </article>
-
-                <article class="category-card gk-card"
-                    data-category="gk">
-                    <div class="category-icon">🌍</div>
-                    <h3>General Knowledge</h3>
-                    <p>Test your general awareness and knowledge.</p>
-                    <button class="start-category-btn" type="button">
-                        Start Quiz →
-                    </button>
-                </article>
-
-                <article class="category-card cs-card"
-                    data-category="cs">
-                    <div class="category-icon">💻</div>
-                    <h3>Computer Science</h3>
-                    <p>Programming and computer fundamentals.</p>
-                    <button class="start-category-btn" type="button">
-                        Start Quiz →
-                    </button>
-                </article>
-
-            </div>
-        </section>
-
-        <section class="quiz-section" id="quizSection"
-            style="display: none;">
-
-            <div class="quiz-header">
                 <div>
-                    <span class="section-label">QUIZ IN PROGRESS</span>
-                    <h2 id="categoryTitle">Practice Quiz</h2>
+                    <strong id="resultWrong">0</strong>
+                    <span>Wrong</span>
                 </div>
-
-                <div class="timer-box">
-                    <span>Time Remaining</span>
-                    <p id="timer">05:00</p>
-                </div>
-            </div>
-
-            <p id="questionCounter">Question 1 of 5</p>
-
-            <div class="progress-container">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-
-            <h3 id="questionText">
-                Question will appear here.
-            </h3>
-
-            <div id="optionsContainer"></div>
-
-            <button id="nextButton" type="button" disabled>
-                Next Question
-            </button>
-
-        </section>
-
-        <section class="result-section" id="resultSection"
-            style="display: none;">
-
-            <span class="section-label">QUIZ COMPLETED</span>
-            <h2>Your Quiz Result</h2>
-
-            <div class="result-summary">
-                <div class="result-stat">
-                    <span>Your Score</span>
-                    <p id="finalScore">0 / 5</p>
-                </div>
-
-                <div class="result-stat">
-                    <span>Percentage</span>
-                    <p id="finalPercentage">0%</p>
-                </div>
-            </div>
-
-            <h3 id="resultMessage">
-                Keep learning!
-            </h3>
-
-            <div class="review-heading">
-                <h3>Answer Review</h3>
-                <p>Check your answers and correct solutions.</p>
-            </div>
-
-            <div id="answerReview"></div>
-
-            <button id="restartButton" type="button">
-                Try Again
-            </button>
-
-            <button id="dashboardButton" type="button">
-                Back to Dashboard
-            </button>
-
-        </section>
-
-        <section class="history">
-
-            <div class="history-header">
                 <div>
-                    <span class="section-label">YOUR PERFORMANCE</span>
-                    <h2>Recent Quiz Results</h2>
-                    <p>Review your previous quiz attempts.</p>
+                    <strong id="resultUnanswered">0</strong>
+                    <span>Skipped</span>
                 </div>
-
-                <button id="clearHistoryBtn" type="button">
-                    Clear History
-                </button>
+                <div>
+                    <strong id="resultTime">0 sec</strong>
+                    <span>Time Taken</span>
+                </div>
             </div>
 
-            <div id="historyList">
-                <p>No quiz attempts yet.</p>
+            <div class="result-actions">
+                <button id="reviewButton" class="secondary-btn">Review Answers</button>
+                <button id="retryButton" class="primary-btn">Try Again</button>
+                <button id="homeButton" class="text-btn">Back to Home</button>
             </div>
+        </div>
 
-        </section>
+        <div id="reviewSection" class="review-section hidden">
+            <h2>Answer Review</h2>
+            <div id="reviewList"></div>
+        </div>
+    </section>
 
-    </main>
+    <section id="history" class="section history-section">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">YOUR PERFORMANCE</p>
+                <h2>Recent Quiz History</h2>
+            </div>
+            <button id="clearHistoryButton" class="text-btn">Clear History</button>
+        </div>
 
-    <footer class="footer">
-        <p>© 2026 QuizMaster | B.Tech AIML Mini Project</p>
-        <p>Developed using HTML, CSS and JavaScript</p>
-    </footer>
+        <div id="historyList" class="history-list">
+            <p class="empty-message">No quiz attempts yet. Start your first quiz!</p>
+        </div>
+    </section>
 
-    <script src="script.js"></script>
+</main>
 
+<footer>
+    <p>© 2026 QuizMaster | Online Quiz & Examination System</p>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>

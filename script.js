@@ -1,649 +1,981 @@
+// QUIZMASTER - ONLINE QUIZ SYSTEM
 
-// Quiz questions for all available categories
+const STORAGE_KEY = "quizmaster-history";
+const THEME_KEY = "quizmaster-theme";
+
 const quizData = {
     web: {
-        title: "Web Development",
+        name: "Web Development",
+        icon: "🌐",
         questions: [
             {
-                text: "HTML ka full form kya hai?",
-                options: [
-                    "Hyper Text Markup Language",
-                    "High Text Machine Language",
-                    "Hyper Tool Multi Language",
-                    "Home Text Markup Language"
-                ],
-                correctAnswer: "Hyper Text Markup Language"
+                question: "What does HTML stand for?",
+                options: ["Hyper Text Markup Language", "High Text Machine Language", "Hyper Tool Markup Language", "Home Text Markup Language"],
+                answer: "Hyper Text Markup Language",
+                difficulty: "easy"
             },
             {
-                text: "CSS ka use kis liye hota hai?",
-                options: [
-                    "Database banane ke liye",
-                    "Webpage ko style karne ke liye",
-                    "Server chalane ke liye",
-                    "Files delete karne ke liye"
-                ],
-                correctAnswer: "Webpage ko style karne ke liye"
-            },
-            {
-                text: "JavaScript ka main use kya hai?",
-                options: [
-                    "Webpage ko interactive banana",
-                    "Sirf images store karna",
-                    "Sirf text likhna",
-                    "Computer ko band karna"
-                ],
-                correctAnswer: "Webpage ko interactive banana"
-            },
-            {
-                text: "HTML mein hyperlink banane ke liye kaunsa tag use hota hai?",
+                question: "Which tag is used to create a hyperlink?",
                 options: ["<link>", "<a>", "<href>", "<url>"],
-                correctAnswer: "<a>"
+                answer: "<a>",
+                difficulty: "easy"
             },
             {
-                text: "CSS mein text ka colour change karne ke liye kaunsi property hai?",
-                options: ["background", "font-size", "color", "text-style"],
-                correctAnswer: "color"
+                question: "Which CSS property changes text color?",
+                options: ["font-style", "text-color", "color", "background"],
+                answer: "color",
+                difficulty: "easy"
+            },
+            {
+                question: "Which language is used to add interactivity to web pages?",
+                options: ["HTML", "CSS", "JavaScript", "SQL"],
+                answer: "JavaScript",
+                difficulty: "medium"
+            },
+            {
+                question: "Which HTML tag is used to add an image?",
+                options: ["<picture>", "<img>", "<src>", "<image>"],
+                answer: "<img>",
+                difficulty: "easy"
             }
         ]
     },
 
     ai: {
-        title: "AI & Machine Learning",
+        name: "Artificial Intelligence",
+        icon: "🤖",
         questions: [
             {
-                text: "AI ka full form kya hai?",
-                options: [
-                    "Artificial Intelligence",
-                    "Automatic Internet",
-                    "Advanced Information",
-                    "Applied Interface"
-                ],
-                correctAnswer: "Artificial Intelligence"
+                question: "What does AI stand for?",
+                options: ["Automated Internet", "Artificial Intelligence", "Advanced Information", "Artificial Integration"],
+                answer: "Artificial Intelligence",
+                difficulty: "easy"
             },
             {
-                text: "Machine Learning kya hai?",
-                options: [
-                    "Computer hardware",
-                    "AI ka ek subset",
-                    "Web browser",
-                    "Programming language"
-                ],
-                correctAnswer: "AI ka ek subset"
+                question: "Which is a common application of AI?",
+                options: ["Voice assistants", "Paper printing", "Electric switch", "Simple calculator"],
+                answer: "Voice assistants",
+                difficulty: "easy"
             },
             {
-                text: "Supervised Learning mein model ko kya diya jata hai?",
-                options: [
-                    "Unlabeled data",
-                    "Labeled data",
-                    "No data",
-                    "Only images"
-                ],
-                correctAnswer: "Labeled data"
+                question: "What is Machine Learning?",
+                options: ["A programming language", "A type of database", "A subset of AI", "A computer hardware"],
+                answer: "A subset of AI",
+                difficulty: "medium"
             },
             {
-                text: "Neural Network kis se inspired hai?",
-                options: [
-                    "Human brain",
-                    "Keyboard",
-                    "Hard disk",
-                    "Monitor"
-                ],
-                correctAnswer: "Human brain"
+                question: "Which data is used to train a machine learning model?",
+                options: ["Training data", "Output data only", "Deleted data", "Random hardware"],
+                answer: "Training data",
+                difficulty: "easy"
             },
             {
-                text: "Python mein Machine Learning ke liye commonly used library kaunsi hai?",
-                options: [
-                    "Bootstrap",
-                    "Scikit-learn",
-                    "jQuery",
-                    "Tailwind"
-                ],
-                correctAnswer: "Scikit-learn"
+                question: "Which field helps computers understand human language?",
+                options: ["Networking", "NLP", "Cybersecurity", "Operating System"],
+                answer: "NLP",
+                difficulty: "medium"
             }
         ]
     },
 
     gk: {
-        title: "General Knowledge",
+        name: "General Knowledge",
+        icon: "🌍",
         questions: [
             {
-                text: "India ki capital kya hai?",
-                options: [
-                    "Mumbai",
-                    "New Delhi",
-                    "Lucknow",
-                    "Jaipur"
-                ],
-                correctAnswer: "New Delhi"
+                question: "What is the capital of India?",
+                options: ["Mumbai", "New Delhi", "Kolkata", "Chennai"],
+                answer: "New Delhi",
+                difficulty: "easy"
             },
             {
-                text: "India ka national animal kaun hai?",
-                options: [
-                    "Lion",
-                    "Elephant",
-                    "Tiger",
-                    "Leopard"
-                ],
-                correctAnswer: "Tiger"
+                question: "Which is the largest planet in our Solar System?",
+                options: ["Earth", "Mars", "Jupiter", "Venus"],
+                answer: "Jupiter",
+                difficulty: "easy"
             },
             {
-                text: "India ka national bird kaun hai?",
-                options: [
-                    "Parrot",
-                    "Peacock",
-                    "Eagle",
-                    "Sparrow"
-                ],
-                correctAnswer: "Peacock"
+                question: "Who is known as the Father of the Indian Constitution?",
+                options: ["Mahatma Gandhi", "Dr. B. R. Ambedkar", "Jawaharlal Nehru", "Sardar Patel"],
+                answer: "Dr. B. R. Ambedkar",
+                difficulty: "medium"
             },
             {
-                text: "Taj Mahal kis city mein hai?",
-                options: [
-                    "Delhi",
-                    "Jaipur",
-                    "Agra",
-                    "Mumbai"
-                ],
-                correctAnswer: "Agra"
+                question: "How many days are there in a leap year?",
+                options: ["365", "366", "364", "360"],
+                answer: "366",
+                difficulty: "easy"
             },
             {
-                text: "India ka Independence Day kab manaya jata hai?",
-                options: [
-                    "26 January",
-                    "15 August",
-                    "2 October",
-                    "14 November"
-                ],
-                correctAnswer: "15 August"
+                question: "Which is the national animal of India?",
+                options: ["Lion", "Elephant", "Bengal Tiger", "Leopard"],
+                answer: "Bengal Tiger",
+                difficulty: "easy"
             }
         ]
     },
 
     cs: {
-        title: "Computer Science",
+        name: "Computer Science",
+        icon: "💻",
         questions: [
             {
-                text: "CPU ka full form kya hai?",
-                options: [
-                    "Central Processing Unit",
-                    "Computer Personal Unit",
-                    "Central Program Utility",
-                    "Control Processing User"
-                ],
-                correctAnswer: "Central Processing Unit"
+                question: "What is the brain of a computer?",
+                options: ["RAM", "CPU", "Hard Disk", "Monitor"],
+                answer: "CPU",
+                difficulty: "easy"
             },
             {
-                text: "Computer ka brain kise kaha jata hai?",
-                options: [
-                    "Monitor",
-                    "Keyboard",
-                    "CPU",
-                    "Mouse"
-                ],
-                correctAnswer: "CPU"
+                question: "Which of these is an input device?",
+                options: ["Monitor", "Printer", "Keyboard", "Speaker"],
+                answer: "Keyboard",
+                difficulty: "easy"
             },
             {
-                text: "RAM ka full form kya hai?",
-                options: [
-                    "Read Access Memory",
-                    "Random Access Memory",
-                    "Run Access Machine",
-                    "Real Application Memory"
-                ],
-                correctAnswer: "Random Access Memory"
+                question: "What does RAM stand for?",
+                options: ["Read Access Memory", "Random Access Memory", "Run Access Memory", "Rapid Action Memory"],
+                answer: "Random Access Memory",
+                difficulty: "easy"
             },
             {
-                text: "Binary number system mein kitne digits hote hain?",
-                options: [
-                    "2",
-                    "8",
-                    "10",
-                    "16"
-                ],
-                correctAnswer: "2"
+                question: "Which number system uses only 0 and 1?",
+                options: ["Decimal", "Octal", "Binary", "Hexadecimal"],
+                answer: "Binary",
+                difficulty: "medium"
             },
             {
-                text: "Operating System ka example kaunsa hai?",
-                options: [
-                    "MS Word",
-                    "Google Chrome",
-                    "Windows",
-                    "HTML"
-                ],
-                correctAnswer: "Windows"
+                question: "Which device is used to connect computers in a network?",
+                options: ["Router", "Scanner", "Plotter", "Keyboard"],
+                answer: "Router",
+                difficulty: "medium"
+            }
+        ]
+    },
+
+    java: {
+        name: "Java Programming",
+        icon: "☕",
+        questions: [
+            {
+                question: "Who developed Java?",
+                options: ["Microsoft", "James Gosling", "Dennis Ritchie", "Bjarne Stroustrup"],
+                answer: "James Gosling",
+                difficulty: "easy"
+            },
+            {
+                question: "Which keyword is used to create a class in Java?",
+                options: ["function", "define", "class", "struct"],
+                answer: "class",
+                difficulty: "easy"
+            },
+            {
+                question: "Which method is the entry point of a Java program?",
+                options: ["start()", "run()", "main()", "execute()"],
+                answer: "main()",
+                difficulty: "easy"
+            },
+            {
+                question: "Which data type stores true or false?",
+                options: ["int", "boolean", "char", "float"],
+                answer: "boolean",
+                difficulty: "easy"
+            },
+            {
+                question: "Which keyword is used for inheritance in Java?",
+                options: ["implements", "extends", "inherits", "superclass"],
+                answer: "extends",
+                difficulty: "medium"
+            }
+        ]
+    },
+
+    dsa: {
+        name: "Data Structures",
+        icon: "📊",
+        questions: [
+            {
+                question: "Which data structure follows LIFO?",
+                options: ["Queue", "Stack", "Array", "Linked List"],
+                answer: "Stack",
+                difficulty: "easy"
+            },
+            {
+                question: "Which data structure follows FIFO?",
+                options: ["Stack", "Tree", "Queue", "Graph"],
+                answer: "Queue",
+                difficulty: "easy"
+            },
+            {
+                question: "Which data structure stores elements in index order?",
+                options: ["Array", "Tree", "Graph", "Stack"],
+                answer: "Array",
+                difficulty: "easy"
+            },
+            {
+                question: "What is the time complexity of binary search?",
+                options: ["O(n)", "O(log n)", "O(n²)", "O(1)"],
+                answer: "O(log n)",
+                difficulty: "medium"
+            },
+            {
+                question: "Which data structure consists of nodes and edges?",
+                options: ["Array", "Stack", "Graph", "Queue"],
+                answer: "Graph",
+                difficulty: "medium"
+            }
+        ]
+    },
+
+    sql: {
+        name: "Database Management",
+        icon: "🗄️",
+        questions: [
+            {
+                question: "What does DBMS stand for?",
+                options: ["Database Management System", "Data Basic Management Software", "Digital Base Management System", "Database Machine System"],
+                answer: "Database Management System",
+                difficulty: "easy"
+            },
+            {
+                question: "Which SQL command is used to retrieve data?",
+                options: ["INSERT", "UPDATE", "SELECT", "DELETE"],
+                answer: "SELECT",
+                difficulty: "easy"
+            },
+            {
+                question: "Which key uniquely identifies a record?",
+                options: ["Foreign Key", "Primary Key", "Duplicate Key", "Common Key"],
+                answer: "Primary Key",
+                difficulty: "easy"
+            },
+            {
+                question: "Which SQL command removes a table?",
+                options: ["DELETE", "REMOVE", "DROP", "CLEAR"],
+                answer: "DROP",
+                difficulty: "medium"
+            },
+            {
+                question: "What is a collection of related data called?",
+                options: ["Database", "Program", "Algorithm", "Network"],
+                answer: "Database",
+                difficulty: "easy"
+            }
+        ]
+    },
+
+    os: {
+        name: "Operating Systems",
+        icon: "⚙️",
+        questions: [
+            {
+                question: "Which of these is an operating system?",
+                options: ["MS Word", "Windows", "Google Chrome", "Photoshop"],
+                answer: "Windows",
+                difficulty: "easy"
+            },
+            {
+                question: "What is the main function of an operating system?",
+                options: ["Manage computer resources", "Create websites", "Design images", "Write documents"],
+                answer: "Manage computer resources",
+                difficulty: "easy"
+            },
+            {
+                question: "Which is an open-source operating system?",
+                options: ["Linux", "Windows", "iOS", "macOS"],
+                answer: "Linux",
+                difficulty: "easy"
+            },
+            {
+                question: "What is multitasking?",
+                options: ["Running multiple tasks", "Deleting files", "Formatting a disk", "Shutting down a computer"],
+                answer: "Running multiple tasks",
+                difficulty: "medium"
+            },
+            {
+                question: "Which part of an OS manages processes?",
+                options: ["Process Manager", "Text Editor", "Web Browser", "File Printer"],
+                answer: "Process Manager",
+                difficulty: "medium"
+            }
+        ]
+    },
+
+    cn: {
+        name: "Computer Networks",
+        icon: "🔗",
+        questions: [
+            {
+                question: "What does LAN stand for?",
+                options: ["Large Area Network", "Local Area Network", "Long Access Network", "Linked Area Node"],
+                answer: "Local Area Network",
+                difficulty: "easy"
+            },
+            {
+                question: "Which protocol is used to browse websites?",
+                options: ["HTTP", "FTP", "SMTP", "POP3"],
+                answer: "HTTP",
+                difficulty: "easy"
+            },
+            {
+                question: "What does IP stand for?",
+                options: ["Internet Protocol", "Internal Program", "Information Process", "Internet Program"],
+                answer: "Internet Protocol",
+                difficulty: "easy"
+            },
+            {
+                question: "Which device forwards data between networks?",
+                options: ["Mouse", "Router", "Monitor", "Printer"],
+                answer: "Router",
+                difficulty: "medium"
+            },
+            {
+                question: "How many layers are in the OSI model?",
+                options: ["4", "5", "7", "8"],
+                answer: "7",
+                difficulty: "medium"
+            }
+        ]
+    },
+
+    cyber: {
+        name: "Cyber Security",
+        icon: "🔐",
+        questions: [
+            {
+                question: "What is phishing?",
+                options: ["A type of cyber attack", "A programming language", "A database", "A computer part"],
+                answer: "A type of cyber attack",
+                difficulty: "easy"
+            },
+            {
+                question: "Which is a strong password?",
+                options: ["123456", "password", "abc123", "T9#mP2@qL7"],
+                answer: "T9#mP2@qL7",
+                difficulty: "easy"
+            },
+            {
+                question: "What does antivirus software do?",
+                options: ["Protects against malware", "Increases screen size", "Creates websites", "Stores passwords only"],
+                answer: "Protects against malware",
+                difficulty: "easy"
+            },
+            {
+                question: "What is encryption?",
+                options: ["Converting data into a coded form", "Deleting all data", "Formatting a computer", "Creating a folder"],
+                answer: "Converting data into a coded form",
+                difficulty: "medium"
+            },
+            {
+                question: "What does OTP stand for?",
+                options: ["One Time Password", "Online Text Process", "Open Transfer Protocol", "One Type Program"],
+                answer: "One Time Password",
+                difficulty: "easy"
+            }
+        ]
+    },
+
+    math: {
+        name: "Mathematics",
+        icon: "➗",
+        questions: [
+            {
+                question: "What is 12 × 8?",
+                options: ["86", "96", "108", "88"],
+                answer: "96",
+                difficulty: "easy"
+            },
+            {
+                question: "What is the square root of 144?",
+                options: ["10", "11", "12", "14"],
+                answer: "12",
+                difficulty: "easy"
+            },
+            {
+                question: "What is the value of 15% of 200?",
+                options: ["20", "25", "30", "35"],
+                answer: "30",
+                difficulty: "easy"
+            },
+            {
+                question: "What is the sum of angles in a triangle?",
+                options: ["90°", "180°", "270°", "360°"],
+                answer: "180°",
+                difficulty: "easy"
+            },
+            {
+                question: "What is 2 to the power of 5?",
+                options: ["16", "25", "32", "64"],
+                answer: "32",
+                difficulty: "medium"
             }
         ]
     }
 };
 
-// Maintain the current quiz state
-let questions = [];
-let selectedCategory = "web";
-let currentQuestionIndex = 0;
-let selectedAnswer = null;
-let userAnswers = [];
-let timeLeft = 300;
-let timerInterval = null;
-let quizFinished = false;
 
-// Get references to HTML elements
+// 
+// DOM ELEMENTS
+//
+const categoryGrid = document.getElementById("categoryGrid");
 const quizSection = document.getElementById("quizSection");
 const resultSection = document.getElementById("resultSection");
-const questionText = document.getElementById("questionText");
+
 const questionCounter = document.getElementById("questionCounter");
+const questionText = document.getElementById("questionText");
 const optionsContainer = document.getElementById("optionsContainer");
-const nextButton = document.getElementById("nextButton");
 const timerElement = document.getElementById("timer");
 const progressBar = document.getElementById("progressBar");
-const startQuizBtn = document.getElementById("startQuizBtn");
-const restartButton = document.getElementById("restartButton");
-const dashboardButton = document.getElementById("dashboardButton");
-const clearHistoryBtn = document.getElementById("clearHistoryBtn");
+const answeredCounter = document.getElementById("answeredCounter");
+const nextButton = document.getElementById("nextButton");
 
-// Hide quiz and result sections when the page loads
-quizSection.style.display = "none";
-resultSection.style.display = "none";
 
-// Retrieve saved quiz history safely
-function getQuizHistory() {
+//
+// QUIZ VARIABLES
+// 
+let currentCategory = "";
+let questions = [];
+let currentQuestionIndex = 0;
+let selectedAnswers = [];
+let timeLeft = 0;
+let timerInterval = null;
+let quizStartTime = 0;
+let lastResult = null;
+
+
+//
+// LOCAL STORAGE FUNCTIONS
+// 
+
+function getHistory() {
     try {
-        const history = JSON.parse(
-            localStorage.getItem("quizHistory") || "[]"
-        );
-
-        return Array.isArray(history) ? history : [];
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
     } catch (error) {
-        console.error("Unable to read quiz history:", error);
         return [];
     }
 }
 
-// Display the current question and its answer options
-function displayQuestion() {
-    const currentQuestion = questions[currentQuestionIndex];
+function saveHistory(history) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+}
 
-    questionText.textContent = currentQuestion.text;
+
+// 
+// DISPLAY CATEGORIES
+//
+
+function displayCategories() {
+    categoryGrid.innerHTML = "";
+
+    Object.keys(quizData).forEach(function(key) {
+        const category = quizData[key];
+
+        const card = document.createElement("button");
+        card.className = "category-card";
+
+        card.innerHTML = `
+            <div class="category-icon">${category.icon}</div>
+            <h3>${category.name}</h3>
+            <p>${category.questions.length} Questions • Start Quiz →</p>
+        `;
+
+        card.addEventListener("click", function() {
+            startQuiz(key);
+        });
+
+        categoryGrid.appendChild(card);
+    });
+}
+
+
+// 
+// START QUIZ
+// 
+
+function startQuiz(categoryKey) {
+    currentCategory = categoryKey;
+
+    questions = [...quizData[categoryKey].questions];
+
+    currentQuestionIndex = 0;
+    selectedAnswers = new Array(questions.length).fill(null);
+
+    timeLeft = questions.length * 30;
+    quizStartTime = Date.now();
+
+    document.getElementById("quizCategoryLabel").textContent =
+        quizData[categoryKey].name;
+
+    document.getElementById("reviewSection").classList.add("hidden");
+
+    document.getElementById("categories").classList.add("hidden");
+    document.getElementById("dashboard").classList.add("hidden");
+    document.getElementById("history").classList.add("hidden");
+    document.querySelector(".welcome-section").classList.add("hidden");
+
+    resultSection.classList.add("hidden");
+    quizSection.classList.remove("hidden");
+
+    showQuestion();
+    startTimer();
+
+    quizSection.scrollIntoView({ behavior: "smooth" });
+}
+
+
+// 
+// SHOW QUESTION
+//
+
+function showQuestion() {
+    const question = questions[currentQuestionIndex];
 
     questionCounter.textContent =
-        "Question " +
-        (currentQuestionIndex + 1) +
-        " of " +
-        questions.length;
+        `${currentQuestionIndex + 1} / ${questions.length}`;
+
+    questionText.textContent = question.question;
+
+    progressBar.style.width =
+        `${((currentQuestionIndex + 1) / questions.length) * 100}%`;
 
     optionsContainer.innerHTML = "";
-    selectedAnswer = null;
 
-    nextButton.disabled = true;
+    question.options.forEach(function(option) {
+        const button = document.createElement("button");
+
+        button.className = "option-btn";
+        button.textContent = option;
+
+        if (selectedAnswers[currentQuestionIndex] === option) {
+            button.classList.add("selected");
+        }
+
+        button.addEventListener("click", function() {
+            selectAnswer(option);
+        });
+
+        optionsContainer.appendChild(button);
+    });
+
+    updateAnsweredCounter();
+
+    nextButton.disabled =
+        selectedAnswers[currentQuestionIndex] === null;
 
     nextButton.textContent =
         currentQuestionIndex === questions.length - 1
-            ? "Finish Quiz"
-            : "Next Question";
-
-    // Update progress based on completed questions
-    const progress =
-        (currentQuestionIndex / questions.length) * 100;
-
-    progressBar.style.width = progress + "%";
-
-    // Create buttons for the available answer options
-    currentQuestion.options.forEach(function (option) {
-        const optionButton = document.createElement("button");
-
-        optionButton.type = "button";
-        optionButton.textContent = option;
-        optionButton.classList.add("option-btn");
-
-        optionButton.addEventListener("click", function () {
-            if (quizFinished) {
-                return;
-            }
-
-            const allButtons =
-                optionsContainer.querySelectorAll(".option-btn");
-
-            allButtons.forEach(function (button) {
-                button.classList.remove("selected");
-            });
-
-            optionButton.classList.add("selected");
-
-            selectedAnswer = option;
-            nextButton.disabled = false;
-        });
-
-        optionsContainer.appendChild(optionButton);
-    });
+            ? "Finish Quiz ✓"
+            : "Next Question →";
 }
 
-// Format the remaining time as minutes and seconds
-function updateTimerDisplay() {
-    const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft % 60;
 
-    const formattedMinutes =
-        String(minutes).padStart(2, "0");
+//
+// SELECT ANSWER
+// 
 
-    const formattedSeconds =
-        String(seconds).padStart(2, "0");
+function selectAnswer(answer) {
+    selectedAnswers[currentQuestionIndex] = answer;
 
-    timerElement.textContent =
-        formattedMinutes + ":" + formattedSeconds;
-}
+    const buttons = optionsContainer.querySelectorAll(".option-btn");
 
-// Start the countdown timer
-function startTimer() {
-    clearInterval(timerInterval);
+    buttons.forEach(function(button) {
+        button.classList.remove("selected");
 
-    updateTimerDisplay();
-
-    timerInterval = setInterval(function () {
-        if (quizFinished) {
-            clearInterval(timerInterval);
-            return;
+        if (button.textContent === answer) {
+            button.classList.add("selected");
         }
-
-        timeLeft--;
-        updateTimerDisplay();
-
-        // Submit the quiz automatically when time expires
-        if (timeLeft <= 0) {
-            userAnswers[currentQuestionIndex] = selectedAnswer;
-            finishQuiz();
-        }
-    }, 1000);
-}
-
-// Generate the answer review for the completed quiz
-function renderAnswerReview() {
-    const answerReview = document.getElementById("answerReview");
-
-    answerReview.innerHTML = "";
-
-    questions.forEach(function (question, index) {
-        const reviewItem = document.createElement("div");
-        const answer = userAnswers[index];
-
-        const isCorrect = answer === question.correctAnswer;
-
-        const questionHeading = document.createElement("strong");
-        questionHeading.textContent =
-            "Question " + (index + 1) + ": " +
-            (isCorrect ? "Correct" : "Incorrect");
-
-        const userAnswerText = document.createElement("p");
-        userAnswerText.textContent =
-            "Your answer: " + (answer || "Not answered");
-
-        const correctAnswerText = document.createElement("p");
-        correctAnswerText.textContent =
-            "Correct answer: " + question.correctAnswer;
-
-        reviewItem.classList.add(
-            isCorrect ? "review-correct" : "review-incorrect"
-        );
-
-        reviewItem.appendChild(questionHeading);
-        reviewItem.appendChild(userAnswerText);
-        reviewItem.appendChild(correctAnswerText);
-
-        answerReview.appendChild(reviewItem);
     });
+
+    nextButton.disabled = false;
+
+    updateAnsweredCounter();
 }
 
-// Calculate the final score and save the quiz result
-function finishQuiz() {
-    if (quizFinished) {
+
+// 
+// ANSWERED COUNTER
+// 
+
+function updateAnsweredCounter() {
+    const answered = selectedAnswers.filter(function(answer) {
+        return answer !== null;
+    }).length;
+
+    answeredCounter.textContent = `Answered: ${answered}`;
+}
+
+
+// 
+// NEXT QUESTION
+// 
+
+nextButton.addEventListener("click", function() {
+    if (selectedAnswers[currentQuestionIndex] === null) {
         return;
     }
-
-    quizFinished = true;
-    clearInterval(timerInterval);
-
-    let score = 0;
-
-    questions.forEach(function (question, index) {
-        if (userAnswers[index] === question.correctAnswer) {
-            score++;
-        }
-    });
-
-    const percentage = Math.round(
-        (score / questions.length) * 100
-    );
-
-    document.getElementById("finalScore").textContent =
-        score + " / " + questions.length;
-
-    document.getElementById("finalPercentage").textContent =
-        percentage + "%";
-
-    // Display feedback based on quiz performance
-    let message;
-
-    if (percentage >= 80) {
-        message = "Excellent performance! Keep it up.";
-    } else if (percentage >= 50) {
-        message = "Good effort! Keep practising.";
-    } else {
-        message = "Keep learning. You can improve!";
-    }
-
-    document.getElementById("resultMessage").textContent = message;
-
-    renderAnswerReview();
-
-    // Save the latest quiz attempt
-    const history = getQuizHistory();
-
-    history.unshift({
-        category: selectedCategory,
-        score: score,
-        total: questions.length,
-        percentage: percentage,
-        date: new Date().toLocaleString()
-    });
-
-    try {
-        localStorage.setItem(
-            "quizHistory",
-            JSON.stringify(history.slice(0, 10))
-        );
-    } catch (error) {
-        console.error("Unable to save quiz history:", error);
-    }
-
-    progressBar.style.width = "100%";
-
-    quizSection.style.display = "none";
-    resultSection.style.display = "block";
-
-    renderQuizHistory();
-
-    resultSection.scrollIntoView({
-        behavior: "smooth"
-    });
-}
-
-// Save the selected answer and navigate to the next question
-nextButton.addEventListener("click", function () {
-    if (quizFinished || selectedAnswer === null) {
-        return;
-    }
-
-    userAnswers[currentQuestionIndex] = selectedAnswer;
 
     if (currentQuestionIndex < questions.length - 1) {
         currentQuestionIndex++;
-        displayQuestion();
+        showQuestion();
     } else {
         finishQuiz();
     }
 });
 
-// Display saved quiz attempts on the dashboard
-function renderQuizHistory() {
+
+// 
+// TIMER
+//
+
+function startTimer() {
+    clearInterval(timerInterval);
+
+    updateTimerDisplay();
+
+    timerInterval = setInterval(function() {
+        timeLeft--;
+
+        updateTimerDisplay();
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            finishQuiz();
+        }
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+
+    timerElement.textContent =
+        `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+    if (timeLeft <= 30) {
+        timerElement.style.color = "#dc2626";
+    } else {
+        timerElement.style.color = "";
+    }
+}
+
+
+// 
+// FINISH QUIZ
+// 
+
+function finishQuiz() {
+    if (quizSection.classList.contains("hidden")) {
+        return;
+    }
+
+    clearInterval(timerInterval);
+
+    const total = questions.length;
+    let correct = 0;
+    let wrong = 0;
+    let unanswered = 0;
+
+    questions.forEach(function(question, index) {
+        const selected = selectedAnswers[index];
+
+        if (selected === null) {
+            unanswered++;
+        } else if (selected === question.answer) {
+            correct++;
+        } else {
+            wrong++;
+        }
+    });
+
+    const accuracy = Math.round((correct / total) * 100);
+    const timeTaken = Math.max(
+        0,
+        Math.round((Date.now() - quizStartTime) / 1000)
+    );
+
+    lastResult = {
+        category: quizData[currentCategory].name,
+        correct: correct,
+        wrong: wrong,
+        unanswered: unanswered,
+        total: total,
+        accuracy: accuracy,
+        timeTaken: timeTaken,
+        date: new Date().toLocaleString()
+    };
+
+    const history = getHistory();
+
+    history.unshift(lastResult);
+
+    saveHistory(history.slice(0, 50));
+
+    quizSection.classList.add("hidden");
+    resultSection.classList.remove("hidden");
+
+    displayResult(lastResult);
+    updateDashboard();
+    displayHistory();
+
+    resultSection.scrollIntoView({ behavior: "smooth" });
+}
+
+
+//
+// DISPLAY RESULT
+//
+
+function displayResult(result) {
+    document.getElementById("resultCorrect").textContent = result.correct;
+    document.getElementById("resultWrong").textContent = result.wrong;
+    document.getElementById("resultUnanswered").textContent = result.unanswered;
+
+    document.getElementById("resultPercentage").textContent =
+        result.accuracy + "%";
+
+    document.getElementById("resultTime").textContent =
+        result.timeTaken + " sec";
+
+    let title = "Keep Practicing!";
+    let message = "Practice regularly to improve your score.";
+
+    if (result.accuracy >= 80) {
+        title = "Excellent Work!";
+        message = "Outstanding performance. Keep it up!";
+    } else if (result.accuracy >= 60) {
+        title = "Good Job!";
+        message = "You are doing well. Keep improving!";
+    }
+
+    document.getElementById("resultTitle").textContent = title;
+    document.getElementById("resultMessage").textContent = message;
+}
+
+
+// 
+// ANSWER REVIEW
+//
+
+document.getElementById("reviewButton").addEventListener("click", function() {
+    const reviewSection = document.getElementById("reviewSection");
+    const reviewList = document.getElementById("reviewList");
+
+    reviewList.innerHTML = "";
+
+    questions.forEach(function(question, index) {
+        const selected = selectedAnswers[index];
+
+        const isCorrect = selected === question.answer;
+
+        const item = document.createElement("div");
+        item.className = "review-item";
+
+        const heading = document.createElement("h3");
+        heading.textContent = `${index + 1}. ${question.question}`;
+
+        const yourAnswer = document.createElement("p");
+        yourAnswer.textContent =
+            "Your Answer: " + (selected === null ? "Not Answered" : selected);
+
+        yourAnswer.className = isCorrect ? "correct-text" : "wrong-text";
+
+        const correctAnswer = document.createElement("p");
+        correctAnswer.textContent = "Correct Answer: " + question.answer;
+        correctAnswer.className = "correct-text";
+
+        const status = document.createElement("p");
+        status.textContent = isCorrect
+            ? "✓ Correct"
+            : selected === null
+                ? "Skipped"
+                : "✗ Incorrect";
+
+        item.appendChild(heading);
+        item.appendChild(yourAnswer);
+        item.appendChild(correctAnswer);
+        item.appendChild(status);
+
+        reviewList.appendChild(item);
+    });
+
+    reviewSection.classList.remove("hidden");
+    reviewSection.scrollIntoView({ behavior: "smooth" });
+});
+
+
+// 
+// RETRY QUIZ
+// 
+
+document.getElementById("retryButton").addEventListener("click", function() {
+    startQuiz(currentCategory);
+});
+
+
+// 
+// BACK TO HOME
+//
+
+function goHome() {
+    clearInterval(timerInterval);
+
+    quizSection.classList.add("hidden");
+    resultSection.classList.add("hidden");
+
+    document.getElementById("categories").classList.remove("hidden");
+    document.getElementById("dashboard").classList.remove("hidden");
+    document.getElementById("history").classList.remove("hidden");
+    document.querySelector(".welcome-section").classList.remove("hidden");
+
+    updateDashboard();
+    displayHistory();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+document.getElementById("homeButton").addEventListener("click", goHome);
+
+document.getElementById("exitQuizButton").addEventListener("click", function() {
+    const confirmExit = confirm("Are you sure you want to exit this quiz?");
+
+    if (confirmExit) {
+        goHome();
+    }
+});
+
+
+// 
+// DASHBOARD STATISTICS
+// 
+
+function updateDashboard() {
+    const history = getHistory();
+
+    const totalAttempts = history.length;
+
+    const totalAccuracy = history.reduce(function(sum, item) {
+        return sum + item.accuracy;
+    }, 0);
+
+    const averageAccuracy = totalAttempts
+        ? Math.round(totalAccuracy / totalAttempts)
+        : 0;
+
+    const bestScore = totalAttempts
+        ? Math.max(...history.map(item => item.accuracy))
+        : 0;
+
+    const totalQuestionsAttempted = history.reduce(function(sum, item) {
+        return sum + item.correct + item.wrong;
+    }, 0);
+
+    document.getElementById("totalAttempts").textContent = totalAttempts;
+    document.getElementById("averageAccuracy").textContent = averageAccuracy + "%";
+    document.getElementById("bestScore").textContent = bestScore + "%";
+
+    document.getElementById("totalQuestionsAttempted").textContent =
+        totalQuestionsAttempted;
+}
+
+
+// 
+// QUIZ HISTORY
+// 
+
+function displayHistory() {
     const historyList = document.getElementById("historyList");
-    const history = getQuizHistory();
+    const history = getHistory();
 
     historyList.innerHTML = "";
 
-    updateDashboardStats(history);
+    if (history.length === 0) {
+        historyList.innerHTML =
+            '<p class="empty-message">No quiz attempts yet. Start your first quiz!</p>';
+        return;
+    }
+
+    history.forEach(function(item) {
+        const row = document.createElement("div");
+        row.className = "history-item";
+
+        const details = document.createElement("div");
+
+        const title = document.createElement("h3");
+        title.textContent = item.category;
+
+        const date = document.createElement("p");
+        date.textContent = item.date;
+
+        details.appendChild(title);
+        details.appendChild(date);
+
+        const score = document.createElement("div");
+        score.className = "history-score";
+        score.textContent = `${item.correct}/${item.total} (${item.accuracy}%)`;
+
+        row.appendChild(details);
+        row.appendChild(score);
+
+        historyList.appendChild(row);
+    });
+}
+
+
+//
+// CLEAR HISTORY
+// 
+
+document.getElementById("clearHistoryButton").addEventListener("click", function() {
+    const history = getHistory();
 
     if (history.length === 0) {
-        const emptyMessage = document.createElement("p");
-
-        emptyMessage.textContent = "No quiz attempts yet.";
-
-        historyList.appendChild(emptyMessage);
+        alert("There is no quiz history to clear.");
         return;
     }
 
-    history.forEach(function (attempt) {
-        const item = document.createElement("div");
-        item.classList.add("history-item");
+    const confirmClear = confirm("Are you sure you want to clear all quiz history?");
 
-        const category = document.createElement("strong");
-        category.textContent =
-            String(attempt.category || "Quiz").toUpperCase();
+    if (confirmClear) {
+        localStorage.removeItem(STORAGE_KEY);
 
-        const details = document.createElement("p");
+        updateDashboard();
+        displayHistory();
 
-        details.textContent =
-            "Score: " +
-            attempt.score +
-            "/" +
-            attempt.total +
-            " | Percentage: " +
-            attempt.percentage +
-            "% | " +
-            attempt.date;
+        alert("Quiz history cleared successfully!");
+    }
+});
 
-        item.appendChild(category);
-        item.appendChild(details);
 
-        historyList.appendChild(item);
-    });
+// 
+// DARK MODE
+// 
+const themeToggle = document.getElementById("themeToggle");
+
+function applyTheme(theme) {
+    document.body.classList.toggle("dark", theme === "dark");
+    themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
 }
 
-// Calculate total attempts, average score and best score
-function updateDashboardStats(history) {
-    const totalQuizzes = history.length;
+const savedTheme = localStorage.getItem(THEME_KEY) || "light";
 
-    let averageScore = 0;
-    let bestScore = 0;
+applyTheme(savedTheme);
 
-    if (totalQuizzes > 0) {
-        const totalPercentage = history.reduce(
-            function (sum, attempt) {
-                return sum + Number(attempt.percentage || 0);
-            },
-            0
-        );
+themeToggle.addEventListener("click", function() {
+    const newTheme = document.body.classList.contains("dark")
+        ? "light"
+        : "dark";
 
-        averageScore = Math.round(
-            totalPercentage / totalQuizzes
-        );
-
-        bestScore = Math.max(
-            ...history.map(function (attempt) {
-                return Number(attempt.percentage || 0);
-            })
-        );
-    }
-
-    document.getElementById("totalQuizzes").textContent =
-        totalQuizzes;
-
-    document.getElementById("averageScore").textContent =
-        averageScore + "%";
-
-    document.getElementById("bestScore").textContent =
-        bestScore + "%";
-}
-
-// Reset the quiz and start the selected category
-function startCategory(category) {
-    if (!quizData[category]) {
-        return;
-    }
-
-    selectedCategory = category;
-    questions = quizData[category].questions;
-
-    currentQuestionIndex = 0;
-    selectedAnswer = null;
-    userAnswers = [];
-    timeLeft = 300;
-    quizFinished = false;
-
-    clearInterval(timerInterval);
-
-    progressBar.style.width = "0%";
-
-    document.getElementById("categoryTitle").textContent =
-        quizData[category].title;
-
-    resultSection.style.display = "none";
-    quizSection.style.display = "block";
-
-    displayQuestion();
-    startTimer();
-
-    quizSection.scrollIntoView({
-        behavior: "smooth"
-    });
-}
-
-// Connect category cards to their respective quizzes
-document.querySelectorAll(".start-category-btn").forEach(
-    function (button) {
-        button.addEventListener("click", function () {
-            const card = button.closest(".category-card");
-
-            if (card) {
-                startCategory(card.dataset.category);
-            }
-        });
-    }
-);
-
-// Start the default Web Development quiz
-startQuizBtn.addEventListener("click", function () {
-    startCategory("web");
+    localStorage.setItem(THEME_KEY, newTheme);
+    applyTheme(newTheme);
 });
 
-// Restart the current category quiz
-restartButton.addEventListener("click", function () {
-    startCategory(selectedCategory);
-});
 
-// Return to the main dashboard
-dashboardButton.addEventListener("click", function () {
-    clearInterval(timerInterval);
+// 
+// INITIALIZE PROJECT
+// 
 
-    quizSection.style.display = "none";
-    resultSection.style.display = "none";
-
-    document.querySelector(".welcome").scrollIntoView({
-        behavior: "smooth"
-    });
-});
-
-// Clear saved quiz attempts after user confirmation
-clearHistoryBtn.addEventListener("click", function () {
-    const confirmClear = confirm(
-        "Are you sure you want to clear all quiz history?"
-    );
-
-    if (!confirmClear) {
-        return;
-    }
-
-    localStorage.removeItem("quizHistory");
-
-    renderQuizHistory();
-});
-
-// Load saved quiz history when the page opens
-renderQuizHistory();
+displayCategories();
+updateDashboard();
+displayHistory();
